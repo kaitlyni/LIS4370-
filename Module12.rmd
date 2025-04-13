@@ -1,0 +1,101 @@
+---
+title: "Core functions of MSTATS"
+author: Kaitlyn Iliev
+output: html_document
+---
+
+## 1. get_track_info()
+### _Purpose_
+This function is what I will use to get song information using the Spotify
+Web API.
+
+### _Inputs_
+* track_name (string): The name of the track
+* artist (string): The name of the artist
+
+### _Outputs_
+This function will utilize the get_track_audio_features() from the spotifyr
+package to provide me with a dataframe with the following information:
+* energy
+* danceability
+* valence
+* tempo
+* loudness
+* key
+* duration_ms
+
+### _Example_
+```r 
+get_track_info("Bored", "Downward")
+
+```
+
+## 2. fetch_lyrics()
+### _Purpose_
+Collect the lyrics for a given song using the lyrics API. 
+
+### _Inputs_
+* track_name (string): The name of the track
+* artist (string): The name of the artist
+
+### _Outputs_
+A character string with the lyrics.
+
+### _Example_
+```r
+fetch_lyrics("Florida", "Panchiko")
+
+```
+## 3. get_sentiment()
+### _Purpose_
+Perform sentiment analysis on lyrics using tidytext package to determine
+whether the lyrics show majority positive, negative, or neutral tone. Utilizes the Bing sentiment lexicon.
+
+### _Inputs_
+* lyrics (string): The lyrics retrieved from the previous function.
+
+### _Outputs_
+A data frame showing the sentiment of each word and a calculated overall sentiment score.
+
+### _Example_
+```r
+
+lyrics <- fetch_lyrics("Florida", "Panchiko")
+get_sentiment(lyrics)
+
+```
+
+## 4. word_cloud()
+### _Purpose_
+Create a word cloud of the most frequently used words in an artist's songs.
+
+### _Inputs_
+* artist (string): The name of the artist
+* n (integer): Number of songs to analyze
+
+### _Output_
+A word cloud visualization of the most common words in the lyrics.
+
+### _Example_
+```r
+
+word_cloud("Clairo", n = 15)
+
+```
+
+## 5. compare_artists()
+Compare lyrical content and sentiment between artists using word frequency and overall sentiment score.
+
+### _Inputs_
+* artist1 (string): Name of first artist
+* artist2 (string): Name of second artist
+
+### _Outputs_
+* Sentiment score comparison plot
+* Summary stats for both artists
+
+### _Example_
+```r
+compare_artists("Glare", "Downward")
+
+```
